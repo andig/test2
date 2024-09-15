@@ -5,8 +5,7 @@ name: related-issues
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   issues:
-    types: 
-      - opened
+    types: [opened, edited]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -32,9 +31,8 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           # The comment body.
           body: |
-            # While you wait, here are related issues:
+            ## While you wait, here are related issues:
             ${{ steps.search.outputs.issues_list }}
-            just a test of post comment
       - name: Add Algolia Record
         id: ingest
         uses: chuckmeyer/add-algolia-record@v0
