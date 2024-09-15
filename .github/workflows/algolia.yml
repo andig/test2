@@ -1,0 +1,14 @@
+name: Algolia
+
+on:
+  issue_comment:
+    types: [created,edited,deleted]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: setup-algolia-cli
+        uses: algolia/setup-algolia-cli@v1.1.0
+                
