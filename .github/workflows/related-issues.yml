@@ -22,17 +22,27 @@ jobs:
           api_key: ${{ secrets.ALGOLIA_API_KEY }}
           index_name: ${{ github.event.repository.name }}
           issue_title: ${{ github.event.issue.title }}
+
+      - name: Find Comment
+        uses: peter-evans/find-comment@v3
+        id: fc
+        with:
+            issue-number: ${{ github.event.issue.number }}
+            comment-author: 'github-actions[bot]'
+            body-includes: While you wait, here are related issues
+
       - name: Create or Update Comment
-        uses: peter-evans/create-or-update-comment@v1.4.5
+        uses: peter-evans/create-or-update-comment@v4
         with:
           # GITHUB_TOKEN or a repo scoped PAT.
           token: ${{ github.token }}
-          # The number of the issue or pull request in which to create a comment.
           issue-number: ${{ github.event.issue.number }}
-          # The comment body.
+          comment-id: ${{ steps.fc.outputs.comment-id }}
           body: |
             ## While you wait, here are related issues:
             ${{ steps.search.outputs.issues_list }}
+          edit-mode: replace
+          
       - name: Add Algolia Record
         id: ingest
         uses: chuckmeyer/add-algolia-record@v0
