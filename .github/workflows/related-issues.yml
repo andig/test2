@@ -19,7 +19,7 @@ jobs:
         name: Search based on issue title
         uses: brob/algolia-issue-search@v1.0
         with: 
-          app_id: ${{ secrets.ALGOLIA_APP_ID }}
+          app_id: ${{ secrets.ALGOLIA_APPLICATION_ID }}
           api_key: ${{ secrets.ALGOLIA_API_KEY }}
           index_name: ${{ github.event.repository.name }}
           issue_title: ${{ github.event.issue.title }}
@@ -40,7 +40,7 @@ jobs:
         uses: chuckmeyer/add-algolia-record@v0
 
         with:
-          app_id: ${{ secrets.ALGOLIA_APP_ID }}
+          app_id: ${{ secrets.ALGOLIA_APPLICATION_ID }}
           api_key: ${{ secrets.ALGOLIA_API_KEY }}
           index_name: ${{ github.event.repository.name }}
           record: |
