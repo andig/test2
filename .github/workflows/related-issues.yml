@@ -33,6 +33,7 @@ jobs:
 
       - name: Create or Update Comment
         uses: peter-evans/create-or-update-comment@v4
+        if: ${{ steps.search.outputs.issues_list }}
         with:
           # GITHUB_TOKEN or a repo scoped PAT.
           token: ${{ github.token }}
@@ -42,7 +43,7 @@ jobs:
             ## While you wait, here are related issues:
             ${{ steps.search.outputs.issues_list }}
           edit-mode: replace
-          
+
       - name: Add Algolia Record
         id: ingest
         uses: chuckmeyer/add-algolia-record@v0
